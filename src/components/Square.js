@@ -1,35 +1,33 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { animated, useSpring } from 'react-spring';
 
 const StyledSquare = styled.div`
   width: ${(props) => props.size || '200px'};
   height: ${(props) => props.size || '200px'};
   border: 1px solid black;
-  background: ${(props) => (props.movement === 'inTop' ? 'red' : '')};
+  justify-self: center;
+  align-self: center;
+  background: red;
+  perspective: 400px;
 `;
 
-const TextBox = styled.div.attrs((props) => ({
-  duration: '300ms',
-  timingFn: 'ease',
-  turquoise: '#1ABC9C',
-  wetAsphalt: '#34495E',
-  midnightBlue: '#2C3E50',
-  clouds: '#ECF0F1',
-}))`
-  transform: rotate3d(1, 0, 0, 90deg);
-
+const TextBox = styled(animated.div)`
   width: 100%;
   height: 100%;
-  padding: 20px;
+  background: green;
   position: absolute;
   top: 0;
   left: 0;
   border-radius: 4px;
   pointer-events: none;
-  background-color: transparentize(${(props) => props.turquoise}, 0.1);
+  h3,
+  p {
+    margin: 0;
+  }
 `;
 
-export const Square = ({ size }) => {
+export const Square = ({ size, caption = {} }) => {
   const [direction, setDirection] = useState();
 
   const getDirection = (event) => {
@@ -63,14 +61,26 @@ export const Square = ({ size }) => {
     setDirection(`${event.type}-${getDirection(event)}`);
   };
 
+  const motion = useSpring({
+    opacity:
+      direction === 'mouseenter-top' ||
+      direction === 'mouseenter-right' ||
+      direction === 'mouseenter-bottom' ||
+      direction === 'mouseenter-left'
+        ? 1
+        : 0,
+  });
+
   return (
     <StyledSquare
       size={size}
       onMouseEnter={(event) => mouseAction(event)}
       onMouseLeave={(event) => mouseAction(event)}
     >
-      {direction}
-      <TextBox>Caption goes here</TextBox>
+      <TextBox style={motion}>
+        <h3>{caption.title}</h3>
+        <p>{caption.text}</p>
+      </TextBox>
     </StyledSquare>
   );
 };
