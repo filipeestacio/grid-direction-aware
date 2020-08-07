@@ -63,7 +63,7 @@ const Image = styled.img`
 
 const Overlay = styled.div`
   position: absolute;
-  background-color: #008cba;
+  background-color: rgba(255,0,0,0.3);;
   overflow: hidden;
   height: 0;
   width: 0;
