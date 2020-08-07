@@ -63,7 +63,7 @@ const Image = styled.img`
 
 const Overlay = styled.div`
   position: absolute;
-  background-color: rgba(255,0,0,0.3);;
+  background-color: rgba(255,0,0,0.5);;
   overflow: hidden;
   height: 0;
   width: 0;
@@ -73,7 +73,7 @@ const Overlay = styled.div`
 
 const Text = styled.div`
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   position: absolute;
   top: 50%;
   left: 50%;

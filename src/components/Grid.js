@@ -9,49 +9,16 @@ const StyledGrid = styled.div`
   grid-template-rows: auto auto;
 `;
 
-export const Grid = ({ squareSize = '200px' }) => {
+export const Grid = ({ content, squareSize = '200px' }) => {
   return (
     <StyledGrid squareSize={squareSize}>
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div1', text: 'caption1' }}
-      />
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div2', text: 'caption2' }}
-      />
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div3', text: 'caption3' }}
-      />
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div4', text: 'caption4' }}
-      />
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div5', text: 'caption5' }}
-      />
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div6', text: 'caption6' }}
-      />
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div7', text: 'caption7' }}
-      />
-      <Square
-        size={squareSize}
-        src={'https://via.placeholder.com/200'}
-        caption={{ title: 'div8', text: 'caption8' }}
-      />
+      {content.map((item) => (
+        <Square
+          src={item.src}
+          caption={item.caption}
+          size={squareSize}
+        ></Square>
+      ))}
     </StyledGrid>
   );
 };
