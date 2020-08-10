@@ -46,7 +46,7 @@ const getOverlayMotion = (action, direction) => {
 };
 
 const animation = ({ action, direction }) => css`
-  ${getOverlayMotion(action, direction)} 0.2s ease forwards;
+  ${getOverlayMotion(action, direction)} 0.3s ease forwards;
 `;
 
 const Container = styled.div`
