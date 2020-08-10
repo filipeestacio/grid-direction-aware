@@ -1,42 +1,42 @@
 import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 
-const motion = {};
+const overlayMotion = {};
 
-motion.inTop = keyframes`0% {height: 0; bottom: 100%;} 100% { height: 100%; bottom: 0;}`;
-motion.inRight = keyframes`0% {width: 0; left: 100%;} 100% {width: 100%; left: 0;}`;
-motion.inBottom = keyframes`0% {height: 0;} 100% {height: 100%;}`;
-motion.inLeft = keyframes`0% {width: 0;} 100% {width: 100%;}`;
-motion.outTop = keyframes`0% {height: 100%; bottom: 0;} 100% {height: 0; bottom: 100%}`;
-motion.outRight = keyframes`0% {width: 100%; left: 0;} 100% {width: 0; left: 100%;}`;
-motion.outBottom = keyframes`0% {height: 100%;} 100% {height: 0;}`;
-motion.outLeft = keyframes`0% {width: 100%;} 100% {width: 0;}`;
+overlayMotion.inTop = keyframes`0% {height: 0; bottom: 100%;} 100% { height: 100%; bottom: 0;}`;
+overlayMotion.inRight = keyframes`0% {width: 0; left: 100%;} 100% {width: 100%; left: 0;}`;
+overlayMotion.inBottom = keyframes`0% {height: 0;} 100% {height: 100%;}`;
+overlayMotion.inLeft = keyframes`0% {width: 0;} 100% {width: 100%;}`;
+overlayMotion.outTop = keyframes`0% {height: 100%; bottom: 0;} 100% {height: 0; bottom: 100%}`;
+overlayMotion.outRight = keyframes`0% {width: 100%; left: 0;} 100% {width: 0; left: 100%;}`;
+overlayMotion.outBottom = keyframes`0% {height: 100%;} 100% {height: 0;}`;
+overlayMotion.outLeft = keyframes`0% {width: 100%;} 100% {width: 0;}`;
 
-const getMotion = (action, direction) => {
+const getOverlayMotion = (action, direction) => {
   switch (action) {
     case 'enter':
       switch (direction) {
         case 'top':
-          return motion.inTop;
+          return overlayMotion.inTop;
         case 'right':
-          return motion.inRight;
+          return overlayMotion.inRight;
         case 'bottom':
-          return motion.inBottom;
+          return overlayMotion.inBottom;
         case 'left':
-          return motion.inLeft;
+          return overlayMotion.inLeft;
         default:
           return '';
       }
     case 'leave':
       switch (direction) {
         case 'top':
-          return motion.outTop;
+          return overlayMotion.outTop;
         case 'right':
-          return motion.outRight;
+          return overlayMotion.outRight;
         case 'bottom':
-          return motion.outBottom;
+          return overlayMotion.outBottom;
         case 'left':
-          return motion.outLeft;
+          return overlayMotion.outLeft;
         default:
           return '';
       }
@@ -46,7 +46,7 @@ const getMotion = (action, direction) => {
 };
 
 const animation = ({ action, direction }) => css`
-  ${getMotion(action, direction)} 0.2s ease forwards;
+  ${getOverlayMotion(action, direction)} 0.2s ease forwards;
 `;
 
 const Container = styled.div`
