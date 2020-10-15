@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
+import { animated, useSpring } from 'react-spring';
 
 const overlayMotion = {};
 
@@ -61,7 +62,7 @@ const Image = styled.img`
   height: auto;
 `;
 
-const Overlay = styled.div`
+const Overlay = styled(animated.div)`
   position: absolute;
   background-color: rgba(255,0,0,0.5);;
   overflow: hidden;
@@ -84,6 +85,46 @@ const Text = styled.div`
 export const Square = ({ size, caption = {}, src }) => {
   const [direction, setDirection] = useState('');
   const [action, setAction] = useState('');
+
+  const overlayMotionInTop = useSpring({
+    from: { height: 0, bottom: '100%' },
+    to: { height: '100%', bottom: 0 },
+  });
+
+  const overlayMotionOutTop = useSpring({
+    from: { height: '100%', bottom: 0 },
+    to: { height: 0, bottom: '100%' },
+  });
+
+  const overlayMotionInRight = useSpring({
+    from: { width: 0, left: '100%' },
+    to: { width: '100%', left: 0 },
+  });
+
+  const overlayMotionOutRight = useSpring({
+    from: { width: '100%', left: 0 },
+    to: { width: 0, left: '100%' },
+  });
+
+  const overlayMotionInBottom = useSpring({
+    from: { height: 0 },
+    to: { height: '100%' },
+  });
+
+  const overlayMotionOutBottom = useSpring({
+    from: { height: '100%' },
+    to: { height: 0 },
+  });
+
+  const overlayMotionInLeft = useSpring({
+    from: { width: 0 },
+    to: { width: '100%' },
+  });
+
+  const overlayMotionOutLeft = useSpring({
+    from: { width: '100%' },
+    to: { width: 0 },
+  });
 
   const handleMouseEnter = (event) => {
     setDirection(getDirection(event));
@@ -148,6 +189,39 @@ export const Square = ({ size, caption = {}, src }) => {
     }
   };
 
+  const getSpringMotion = (action, direction) => {
+    switch (action) {
+      case 'enter':
+        switch (direction) {
+          case 'top':
+            return overlayMotionInTop;
+          case 'right':
+            return overlayMotionInRight;
+          case 'bottom':
+            return overlayMotionInBottom;
+          case 'left':
+            return overlayMotionInLeft;
+          default:
+            return '';
+        }
+      case 'leave':
+        switch (direction) {
+          case 'top':
+            return overlayMotionOutTop;
+          case 'right':
+            return overlayMotionOutRight;
+          case 'bottom':
+            return overlayMotionOutBottom;
+          case 'left':
+            return overlayMotionOutLeft;
+          default:
+            return '';
+        }
+      default:
+        return '';
+    }
+  };
+
   return (
     <Container
       size={size}
@@ -160,6 +234,7 @@ export const Square = ({ size, caption = {}, src }) => {
         initialPosition={getInitialPosition(direction)}
         action={action}
         direction={direction}
+        style={getSpringMotion(action, direction)}
       >
         <Text>
           {caption.title && <h3>{caption.title}</h3>}
